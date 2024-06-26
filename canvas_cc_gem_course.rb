@@ -20,15 +20,15 @@ gs.identifier = SecureRandom.hex
 course.grading_standards = [gs]
 
 [ # creats assignments with a mix of submission_types
-  ["Known", "Displays", "online_text_entry"],
-  ["Unknown", "Has no", "n/a"],
-  ["Missing", "Displays", nil]
+  ["Known", "online_text_entry"],
+  ["Unknown", "n/a"],
+  ["Missing", nil]
 ].each do |data|
   assignment = CanvasCc::CanvasCC::Models::Assignment.new
   assignment.assignment_group_identifier_ref = ag.identifier
-  assignment.title = "Course with #{data[0]} Submission Type"
-  assignment.body = "<p>#{data[1]} submission type</p>"
-  assignment.submission_types << data[2] if data[2]
+  assignment.title = "Course with #{data.first} Submission Type"
+  assignment.body = "<p>This is assignment content.</p>"
+  assignment.submission_types << data.last unless data.last.nil?
   assignment.points_possible = 10
   assignment.workflow_state = "active"
   assignment.identifier = SecureRandom.hex
