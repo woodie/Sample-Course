@@ -37,6 +37,15 @@ course.grading_standards = [gs]
   course.assignments << assignment
 end
 
+page = CanvasCc::CanvasCC::Models::Page.new
+page.workflow_state = "active"
+page.page_name = "Latex Example"
+page.body = "<p>When \\(a \\ne 0\\), there are two
+solutions to \\(ax^2 + bx + c = 0\\) and they are
+\\(x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.\\)</p>"
+page.identifier = new_identifier
+course.pages << page
+
 dir = Dir.mktmpdir
 output_file = CanvasCc::CanvasCC::CartridgeCreator.new(course).create(dir)
 puts output_file
